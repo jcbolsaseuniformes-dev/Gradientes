@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gradiente SVG — preenchimento interativo</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Gradiente SVG</h1>
+      <p>Como o preenchimento interativo do CorelDRAW: trace na imagem, clique na forma do vetor</p>
+    </div>
+  </header>
+  <div class="layout">
+    <aside>
+      <div class="field">
+        <label for="imgFile">1. Imagem de referência</label>
+        <input type="file" id="imgFile" accept="image/png,image/jpeg,image/webp" />
+      </div>
+      <div class="field">
+        <label for="svgFile">2. Vetor SVG</label>
+        <input type="file" id="svgFile" accept=".svg,image/svg+xml" />
+      </div>
+
+      <div class="field">
+        <label>Tipo de linha na imagem</label>
+        <div class="tool-tabs" id="drawTools">
+          <button type="button" data-mode="reta" class="active">Reta</button>
+          <button type="button" data-mode="curva">Curva</button>
+          <button type="button" data-mode="livre">Livre</button>
+        </div>
+        <p class="hint">Reta = arrastar. Curva = arrastar e depois puxe o ponto do meio; clique duplo adiciona ponto; botão direito remove. Livre = desenho à mão (ou segure Alt).</p>
+      </div>
+
+      <div class="field">
+        <label>Stops do gradiente</label>
+        <div class="row">
+          <input type="range" id="lineStops" min="5" max="21" step="2" value="11" />
+          <span class="val" id="lineStopsVal">11</span>
+        </div>
+      </div>
+
+      <div class="undo-row">
+        <button type="button" id="btnUndo" disabled title="Ctrl+Z">Desfazer</button>
+        <button type="button" id="btnRedo" disabled title="Ctrl+Y">Refazer</button>
+      </div>
+
+      <div class="status warn" id="status">Envie a imagem e o SVG para começar.</div>
+
+      <h3 class="aside-title">Gradientes</h3>
+      <ul class="line-list" id="lineList"></ul>
+      <button class="ghost" id="btnClear" disabled>Limpar tudo</button>
+
+      <div class="actions">
+        <button class="primary" id="btnDlSvg" disabled>Baixar SVG</button>
+        <button id="btnDlPng" disabled>Baixar PNG</button>
+      </div>
+    </aside>
+    <main>
+      <div class="workbench on">
+        <div class="canvas-wrap">
+          <h3>Imagem — trace a linha / curva aqui</h3>
+          <div class="viewport" id="imgViewport">
+            <canvas class="base" id="imgBase"></canvas>
+            <canvas class="overlay" id="imgOverlay"></canvas>
+          </div>
+        </div>
+        <div class="canvas-wrap">
+          <h3>Vetor — clique na forma · arraste as alças</h3>
+          <div class="viewport" id="vecViewport">
+            <canvas class="base" id="vecBase"></canvas>
+            <canvas class="overlay" id="vecOverlay"></canvas>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
